@@ -115,4 +115,5 @@ test('submit order success', async ({ page }) => {
   //await page.locator('//button[text()="Purchase"] /parent::div//button[text()="Close"]').click(); 
   
   await page.locator('//a[text()="Log out"]').click();
+  await expect (page.locator('//a[text()="Log in"]')).toBeVisible();
 });
