@@ -8,7 +8,7 @@ pipeline {
     parameters {
         choice(
             name: 'TEST_SUITE',
-            choices: ['happyFlow', 'error', 'empty', 'success', 'all'],
+            choices: ['positive', 'negative', 'additional', 'all'],
             description: 'Pilih test suite yang ingin dijalankan'
         )
 
