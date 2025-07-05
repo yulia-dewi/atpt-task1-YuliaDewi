@@ -1,0 +1,85 @@
+pipeline {
+    agent any
+
+    tools {
+    nodejs 'NodeJS 24'
+    }
+
+    parameters {
+        choice(
+            name: 'TEST_SUITE',
+            choices: ['happyFlow', 'error', 'empty', 'success', 'all'],
+            description: 'Pilih test suite yang ingin dijalankan'
+        )
+
+        booleanParam(
+            name: 'HEADLESS',
+            defaultValue: true,
+            description: 'Jalankan test dalam mode headless?'
+        )
+    }
+
+    environment {
+        HOME = "${env.WORKSPACE}"
+    }
+
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Install Browsers') {
+            steps {
+                sh 'npx playwright install --with-deps'
+            }
+        }
+
+        stage('Run Playwright Tests transaction') {
+            steps {
+                script {
+                    def command = "npx playwright test"
+
+                    // Suite
+                    switch (params.TEST_SUITE) {
+                        case 'positive':
+                            command += ' --grep "@positive"'
+                            break
+                        case 'negative':
+                            command += ' --grep "@negative"'
+                            break
+                        case 'additional':
+                            command += ' --grep @additional'
+                            break
+                        default:
+                            break
+                    }
+
+                    if (!params.HEADLESS) {
+                        command += " --headed"
+                    }
+
+                    echo "Running command: ${command}"
+                    sh command
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // publishHTML([
+            //     allowMissing: false, 
+            //     alwaysLinkToLastBuild: true, 
+            //     keepAll: true, 
+            //     reportDir: 'playwright-report', 
+            //     reportFiles: 'index.html', 
+            //     reportName: 'Lihat Report disini', 
+            //     reportTitles: '', 
+            //     useWrapperFileDirectly: false])
+
+            archiveArtifacts artifacts: 'playwright-report/**', caseSensitive: false, defaultExcludes: false, followSymlinks: false
+        }
+    }
+}

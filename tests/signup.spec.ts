@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('sign up success', async ({ page }) => {
+test('sign up success', {tag: '@positive'}, async ({ page }) => {
   await page.goto('https://demoblaze.com/');
   await page.getByRole('link', { name: 'Sign up' }).click();
 

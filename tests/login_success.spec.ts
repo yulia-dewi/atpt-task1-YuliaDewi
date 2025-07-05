@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 
-test('login user success', async ({ page }) => {
+test('login user success', {tag: '@positive'}, async ({ page }) => {
     await page.getByRole('link', { name: 'Log in' }).click();
     await page.locator('#loginusername').fill('useryd');
     await page.locator('#loginpassword').fill('Pswd1234');

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('submit order success', async ({ page }) => {
+test('submit order success', {tag: '@positive'}, async ({ page }) => {
   await page.goto('https://demoblaze.com/');
   await page.getByRole('link', { name: 'Log in' }).click();
   await page.locator('#loginusername').fill('useryd');

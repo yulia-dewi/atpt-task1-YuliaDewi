@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('add item per category and delete item - no login', async ({ page }) => {
+test('add item per category and delete item - no login', {tag: '@additional'}, async ({ page }) => {
   await page.goto('https://demoblaze.com/');
 //   await page.getByRole('link', { name: 'Log in' }).click();
 //   await page.locator('#loginusername').fill('useryddeleteproduct');

@@ -4,7 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('https://demoblaze.com/');
 })
 
-test('login user not exist', async ({ page }) => {
+test('login user not exist', {tag: '@negative'}, async ({ page }) => {
   await page.getByRole('link', { name: 'Log in' }).click();
   await page.locator('#loginusername').fill('yulia_dewif');
   await page.locator('#loginpassword').fill('dfdfsdf');
@@ -19,7 +19,7 @@ test('login user not exist', async ({ page }) => {
    
 });
 
-test('login without any mandatory', async ({ page }) => {
+test('login without any mandatory', {tag: '@negative'}, async ({ page }) => {
   await page.getByRole('link', { name: 'Log in' }).click();
   
   page.on('dialog', async (dialog1) => { 
@@ -32,7 +32,7 @@ test('login without any mandatory', async ({ page }) => {
 
 });
 
-test('login with only username', async ({ page }) => {
+test('login with only username', {tag: '@negative'}, async ({ page }) => {
   await page.getByRole('link', { name: 'Log in' }).click();
   await page.locator('#loginusername').fill('yulia_dewif');
   
@@ -47,7 +47,7 @@ test('login with only username', async ({ page }) => {
 
 });
 
-test('login with only password', async ({ page }) => {
+test('login with only password', {tag: '@negative'}, async ({ page }) => {
   await page.getByRole('link', { name: 'Log in' }).click();
   await page.locator('#loginpassword').fill('dfdfsdf');
   
